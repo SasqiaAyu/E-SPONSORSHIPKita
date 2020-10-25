@@ -263,7 +263,7 @@
         </div>
     </div>
 </div>
-<script src="/theme-notika/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="{{  asset('/theme-notika/js/vendor/jquery-1.12.4.min.js') }}"></script>
 <script>
     $(function() {
         $(".div-company").hide();
