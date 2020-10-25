@@ -9,7 +9,7 @@
   @include('layoutfront.navbar')
 
 
-  <header class="bg-primary text-white" style="background-image: url('img/sponsor.png');
+  <header class="bg-primary text-white" style="background-image: url('{{ asset('img/sponsor.png') }}');
   background-size: cover;">
     <div class="container text-center">
       <h1>Selamat Datang di ESponsorship</h1>
