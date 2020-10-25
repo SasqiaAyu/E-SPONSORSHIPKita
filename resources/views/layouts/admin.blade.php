@@ -48,7 +48,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="logo-area">
                         <a style="color:white; font-size:24px">
-                            <img src="{{url('img/logo.png')}}" alt="Logo Politeknik Harapan Bersama" width="10%"
+                            <img src="{{ asset('img/logo.png') }}" alt="Logo Politeknik Harapan Bersama" width="10%"
                                 height="10%">
                                 ESponsorship | 
                                 @if (Auth()->user()->jenis_user == 1)
