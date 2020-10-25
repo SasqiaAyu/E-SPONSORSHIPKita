@@ -7,7 +7,7 @@
     <title>
         ESponsorship | {{ucfirst($__env->yieldContent('menu'))}}
     </title>
-    <link rel="shortcut icon" type="image/png" href="{{url('img/logo.png')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/logo.png') }}">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('theme-notika/img/favicon.ico')}}"> --}}
