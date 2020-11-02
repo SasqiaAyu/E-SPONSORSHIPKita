@@ -13,7 +13,6 @@ use App\Mail\ActivationEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use App\Mail\SendEmail;
@@ -116,7 +115,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // $admin = User::first()->email;
 
         if($data['jenis_user'] == 2){
             $user = User::create([
@@ -138,11 +136,10 @@ class RegisterController extends Controller
                 'deskripsi' => $data['deskripsi']
             ]);
 
-            Mail::to($user->email)->send(new ActivationEmail($user));
-
             $message = "Perusahaan ".$user->nama." telah berhasil mendaftar";
+            Mail::to($user->email)->send(new ActivationEmail($user));
+            Mail::to("sasqia.ayul@gmail.com")->send(new SendEmail($message));
 
-            Mail::to("esponsorship@gmail.com")->send(new SendEmail($message));
         }elseif($data['jenis_user'] == 3){
             $user = User::create([
                 'nama' => $data['nama'],
@@ -162,10 +159,11 @@ class RegisterController extends Controller
                 'foto_nim_tipe' => $data['foto_nim']->getClientMimeType()
             ]);
 
-            $message = "Mahasiswa ".$user->nama." telah berhasil mendaftar";
-
-            Mail::to("esponsorship@gmail.com")->send(new SendEmail($message));
+              $message = "Mahasiswa ".$user->nama." telah berhasil mendaftar";
+              Mail::to("sasqia.ayul@gmail.com")->send(new SendEmail($message));
         }
+
+
         return redirect(route('verify'));
     }
 }

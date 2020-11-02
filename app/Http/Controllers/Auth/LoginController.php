@@ -39,10 +39,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    public function exampleMail(){
-        $message = 'Saskia telah berhasil mendaftar';
-        Mail::to('sasqia.ayul@gmail.com')->send(new SendEmail($message));
-        return "success";
-    }
 }
