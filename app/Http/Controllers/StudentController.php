@@ -258,7 +258,7 @@ class StudentController extends Controller
 
         $company = Company::find($request->company_id);
 
-        $message = "Mahasiswa ".$student->nama." telah mengajukan proposal yang berjudul ".$proposal->file_nama;
+        $message = "Mahasiswa ".$student->user->nama." telah mengajukan proposal yang berjudul ".$proposal->file_nama;
         Mail::to($company->user->email)->send(new SendEmail($message));
 
         return redirect("/home");
