@@ -8,6 +8,8 @@ use App\Proposal;
 use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mail;
+use App\Mail\SendEmail;
 
 
 class StudentController extends Controller
@@ -93,7 +95,7 @@ class StudentController extends Controller
           //
         $user = User::where('jenis_user',2)->where('approve',1)->Where('nama','like', '%'. $request->cari.'%')->skip(($request->page*10)-20)->take(10)->get();
         $data = [];
-        
+
         foreach ($user as $key => $value) {
             # code...
             if($request->kategori != ""){
@@ -126,7 +128,7 @@ class StudentController extends Controller
         //
         $user = User::where('jenis_user',2)->where('approve',1)->Where('nama','like', '%'. $request->cari.'%')->skip($request->page*10)->take(10)->get();
         $data = [];
-        
+
         foreach ($user as $key => $value) {
             # code...
             if($request->kategori != ""){
@@ -150,7 +152,7 @@ class StudentController extends Controller
                 ];
                 array_push($data, $arr);
             }
-            
+
         }
 
         return response()->json( ["data" => $data, "page" => $request->page+1] );
@@ -185,7 +187,7 @@ class StudentController extends Controller
                 ];
                 array_push($data, $arr);
             }
-            
+
         }
 
         return response()->json( ["data" => $data, "page" => 1] );
@@ -233,7 +235,7 @@ class StudentController extends Controller
         // "application/msword",
         // "application/pdf",
         // );
-        // $uploadedFile = $request->file('proposal');  
+        // $uploadedFile = $request->file('proposal');
         // $type = $uploadedFile->getClientMimeType();
         // $checkpdf = array_search($type, $array_file);
         // if( $checkpdf != "" ) {
@@ -253,6 +255,12 @@ class StudentController extends Controller
             'file_nama' => $request['proposal']->getClientOriginalName(),
             'file_tipe' => $request['proposal']->getClientMimeType(),
         ]);
+
+        $company = Company::find($request->company_id);
+
+        $message = "Mahasiswa ".$student->nama." telah mengajukan proposal yang berjudul ".$proposal->file_nama;
+        Mail::to($company->user->email)->send(new SendEmail($message));
+
         return redirect("/home");
     }
 
@@ -268,7 +276,7 @@ class StudentController extends Controller
         // $users = User::where('jenis_user',2)->where('approve',null)->get();
         // return view('approval_user.company',['users'=>$users]);
     }
-    
+
     public function pengajuanProposal(){
         return view('proposal.pengajuan_proposal',[
             'company' => User::where('jenis_user',2)->where('approve',1)->get(),
