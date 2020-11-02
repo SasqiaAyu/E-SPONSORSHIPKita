@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['verify' => true]);
 
+Route::get('/coba/email', function(){
+  return view('email.notificationEmail');
+});
+
 Route::middleware(['web'])->group(function(){
     Route::get('/', function () {
         return view('welcome');
@@ -21,7 +25,7 @@ Route::middleware(['web'])->group(function(){
 
     Route::get('/verify', function () {
         return view('auth/verify');
-    })->name('verify');    
+    })->name('verify');
     Route::get('/verifyCompany/{data}',"UploudBuktiController@edit")
         ->name('verifyCompany');
     Route::put('/verifyCompany/{id}',"UploudBuktiController@update")
@@ -34,13 +38,13 @@ Route::middleware(['web','auth'])->group(function(){
     Route::resource('profile','ProfileController',
         ['parameters' => ['profile' => 'user']]);
     Route::resource('testimoni','TestimoniController',
-        ['testimonies' => ['testimoni' => 'data']]);        
+        ['testimonies' => ['testimoni' => 'data']]);
 });
 Route::middleware(['web','auth','role:sa'])->group(function () {
     Route::resource('managementUser/student','ManagementUser\StudentController',
         ['parameters' => ['student' => 'user'], 'as' => 'management']);
     Route::resource('managementUser/company','ManagementUser\CompanyController',
-        ['parameters' => ['company' => 'user'], 'as' => 'management']);    
+        ['parameters' => ['company' => 'user'], 'as' => 'management']);
     Route::resource('approvalUser/student','ApprovalUser\StudentController',
         ['parameters' => ['student' => 'user'], 'as' => 'approval']);
     Route::resource('approvalUser/company','ApprovalUser\CompanyController',
@@ -48,7 +52,7 @@ Route::middleware(['web','auth','role:sa'])->group(function () {
     Route::resource('parameter','ParameterController',
         ['parameters' => ['parameter' => 'data']]);
     Route::resource('category','CategoryController',
-        ['categorys' => ['category' => 'data']]);        
+        ['categorys' => ['category' => 'data']]);
     Route::resource('faculty','FacultyController',
         ['facultys' => ['faculty' => 'data']]);
     Route::resource('major','MajorController',
