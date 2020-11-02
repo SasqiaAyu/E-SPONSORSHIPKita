@@ -359,7 +359,7 @@ table{
             <table>
             	<tr>
             		<td>
-                  <h1 style="color: #ec524b; margin-top: -160px"><b>hajagjsgsgjdsfgdhf</b></h1>
+                  <h1 style="color: #ec524b; margin-top: -160px"><b>{{$data}}</b></h1>
             		</td>
             	</tr>
             </table>
