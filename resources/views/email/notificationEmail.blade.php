@@ -361,7 +361,7 @@ table{
             		<td>
                   <div style="padding: 2px 16px;">
                   <div style="box-shadow: 8px 4px 8px 8px rgba(0,0,0,0.2);transition: 0.3s; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                    <h1 style="color: #ec524b; text-align: center; margin-top: -160px"><b>Hehehe</b></h1>
+                    <h1 style="color: #ec524b; text-align: center; margin-top: -160px"><b>{{$data}}</b></h1>
                   </div>
                 </div>
             		</td>
