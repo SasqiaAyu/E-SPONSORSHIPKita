@@ -99,7 +99,7 @@ class ProposalController extends Controller
 
         //Mail::to($proposal->student->user->email)->send(new ApproveEmail($proposal));
         $message = $proposal->file_nama." telah di terima oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->user->email)->send(new SendEmail($message));
+        Mail::to($proposal->student->email)->send(new SendEmail($message));
         return response()->json( ["data" => "ok"] );
     }
 
@@ -114,7 +114,7 @@ class ProposalController extends Controller
 
 
         $message = $proposal->file_nama." telah di tolak oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->user->email)->send(new SendEmail($message));
+        Mail::to($proposal->student->email)->send(new SendEmail($message));
 
         return response()->json( ["data" => "ok"] );
 
@@ -129,7 +129,7 @@ class ProposalController extends Controller
         $proposal->save();
 
         $message = $proposal->file_nama." telah di batalkan oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->user->email)->send(new SendEmail($message));
+        Mail::to($proposal->student->email)->send(new SendEmail($message));
 
         return response()->json( ["data" => "ok"] );
 
