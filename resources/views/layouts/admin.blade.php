@@ -50,7 +50,7 @@
                         <a style="color:white; font-size:24px">
                             <img src="{{ asset('img/logo.png') }}" alt="Logo Politeknik Harapan Bersama" width="10%"
                                 height="10%">
-                                ESponsorship | 
+                                ESponsorship |
                                 @if (Auth()->user()->jenis_user == 1)
                                     SuperAdmin
                                 @endif
@@ -105,7 +105,7 @@
                         </li>
                     </ul>
                     <div class="tab-content custom-menu-content">
-                        <div id="approval_user" class="tab-pane notika-tab-menu-bg animated flipInX 
+                        <div id="approval_user" class="tab-pane notika-tab-menu-bg animated flipInX
                             @if(  $__env->yieldContent('menu') == 'approval') active @endif">
                             <ul class="notika-main-menu-dropdown">
                                 <li @if(  $__env->yieldContent('submenu') == 'approval.company') class="active" @endif>
@@ -155,7 +155,9 @@
                                 <li class="pull-right @if(  $__env->yieldContent('submenu') == 'faculty.index') active @endif">
                                     <a href="{{route('faculty.index')}}">Fakultas</a>
                                 </li>
-                                
+                                <li class="pull-right @if(  $__env->yieldContent('submenu') == 'college.index') active @endif">
+                                    <a href="{{route('college.index')}}">Perguruan Tinggi</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -226,7 +228,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content custom-menu-content">                        
+                    <div class="tab-content custom-menu-content">
                         <div id="profile" class="tab-pane notika-tab-menu-bg animated flipInX @if(  $__env->yieldContent('menu') == 'profile') active @endif">
                             <ul class="notika-main-menu-dropdown">
                                 <li>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaculties extends Migration
+class CreateMajorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateFaculties extends Migration
      */
     public function up()
     {
-        Schema::create('faculties', function (Blueprint $table) {
+        Schema::create('majors', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->unsignedBigInteger('id_faculty');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('id_faculty')->references('id')->on('faculties');
         });
-        DB::table('faculties')->insert([
-            'nama' => 'Informatika'
-        ]);
     }
 
     /**
@@ -31,6 +30,6 @@ class CreateFaculties extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faculties');
+        Schema::dropIfExists('majors');
     }
 }

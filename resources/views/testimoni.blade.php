@@ -18,8 +18,7 @@
                         <thead>
                             <tr>
                                 <th>User</th>
-                                <th>Fakultas</th>
-                                <th>Jurusan</th>
+                                <th>Perguruan Tinggi, Fakultas, dan Jurusan</th>
                                 <th>Testimoni</th>
                             </tr>
                         </thead>
@@ -27,8 +26,13 @@
                             @foreach ($testimonies as $testimoni)
                             <tr>
                                 <td>{{$testimoni->user->nama}}</td>
-                                <td>{{$testimoni->user->student->faculty->nama}}</td>
-                                <td>{{$testimoni->user->student->major->nama}}</td>
+                                <td>
+                                    {{ $testimoni->user->student->major->faculty->college->name }}
+                                    <br>
+                                    {{ $testimoni->user->student->major->faculty->name }}
+                                    <br>
+                                    {{ $testimoni->user->student->major->name}}
+                                </td>
                                 <td>{{$testimoni->pesan}}</td>
                             </tr>
                             @endforeach
@@ -36,8 +40,7 @@
                         <tfoot>
                             <tr>
                                 <th>User</th>
-                                <th>Fakultas</th>
-                                <th>Jurusan</th>
+                                <th>Perguruan Tinggi, Fakultas, dan Jurusan</th>
                                 <th>Testimoni</th>
                             </tr>
                         </tfoot>

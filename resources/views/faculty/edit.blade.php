@@ -21,20 +21,29 @@
                         {{ session()->get('Message Failed') }}
                     </div>
                     @endif
-                    <form action="{{route('faculty.update',$faculty->id)}}" method="post">
+                    <form action="{{route('faculty.update', $faculty)}}" method="post">
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label>Nama Fakultas</label>
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm @error('nama') is-invalid @enderror"
-                                    name="nama" placeholder="Masukkan Nama"
-                                    value="{{ old('nama')?old('nama'):$faculty->nama }}">
-                                @error('nama')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Perguruan Tinggi</label>
+                                    <select class="form-control input-sm" id="" name="college" required>
+                                        @foreach($colleges as $college)
+                                            <option value="{{ $college->id }}" @if($college->id === $faculty->id_college) selected @endif>{{ $college->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="" style="margin-top: 1.5rem">
+                                <label>Nama Fakultas </label>
+                                <div class="form row">
+                                    <div class="form-group mt-3 col-md-4">
+                                        <input type="text" name="faculty" class="form-control input-sm mt-3"
+                                               placeholder="Masukan nama fakultas" value="{{ $faculty->name }}" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-info" type="submit">Save</button>

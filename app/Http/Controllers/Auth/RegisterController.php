@@ -49,7 +49,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
 
         Config::set('categories',Category::get());
-        Config::set('faculties',Faculty::get());
+//        Config::set('faculties',Faculty::get());
         Config::set('majors',Major::get());
     }
 
@@ -144,16 +144,14 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password'])
             ]);
-            
             Student::create([
                 'user_id' => $user->id,
-                'major_id' => $data['jurusan'],
-                'faculty_id' => $data['fakultas'],
+                'id_major' => $data['jurusan'],
                 'foto_nim_sumber' => substr($data['foto_nim']->store('public'),7),
                 'foto_nim_nama' => $data['foto_nim']->getClientOriginalName(),
                 'foto_nim_tipe' => $data['foto_nim']->getClientMimeType()
             ]);
         }
-        return redirect(route('verify')); 
+        return redirect(route('verify'));
     }
 }

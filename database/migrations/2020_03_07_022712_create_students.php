@@ -16,13 +16,13 @@ class CreateStudents extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('major_id');
-            $table->string('faculty_id');
+            $table->unsignedBigInteger('id_major');
             $table->string('foto_nim_sumber')->nullable();
             $table->string('foto_nim_nama')->nullable();
             $table->string('foto_nim_tipe')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('id_major')->references('id')->on('majors');
         });
     }
 

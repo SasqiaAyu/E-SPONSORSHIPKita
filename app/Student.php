@@ -11,8 +11,7 @@ class Student extends Model
     public $timestamps = true;
     protected $fillable = [
         'user_id',
-        'major_id',
-        'faculty_id',
+        'id_major',
         'foto_nim_sumber',
         'foto_nim_nama',
         'foto_nim_tipe'
@@ -22,12 +21,9 @@ class Student extends Model
     {
         return $this->hasOne('App\User','id','user_id');
     }
-    public function faculty()
-    {
-        return $this->belongsTo ('App\Faculty');
-    }
+
     public function major()
     {
-        return $this->belongsTo ('App\major');
+        return $this->belongsTo(Major::class, 'id_major', 'id');
     }
 }

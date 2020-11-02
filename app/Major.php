@@ -3,14 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Major extends Model
 {
-    use SoftDeletes;
-    public $timestamps = true;
+    protected $guarded = [];
 
-    protected $fillable = [
-        'nama'
-    ];
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class, 'id_faculty', 'id');
+    }
 }

@@ -34,20 +34,21 @@
                         <tbody>
                             @foreach ($majors as $major)
                             <tr>
-                                <td>{{$major->nama}}</td>
+                                <td><b>{{ $major->faculty->college->name }}</b> - <b>{{ $major->faculty->name }}</b> - {{$major->name}}</td>
                                 <td>
-                                    <form action="{{route('major.edit',$major->id)}}" method="get">
+                                    <form action="{{ route('major.edit', $major) }}" method="get">
                                         <button class="col-md-12 btn btn-info">Edit</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="{{route('major.destroy',$major->id)}}" method="post">
+                                    <form action="{{ route('major.destroy', $major) }}" method="post">
                                         @method('delete')
                                         @csrf
-                                        <button class="col-md-12 btn btn-danger">Delete</button>
+                                        <button class="col-md-12 btn btn-danger"
+                                                onclick="return confirm('Apakah anda yakin menghapus data {{ $major->name }}?');"
+                                        >Delete</button>
                                     </form>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>
