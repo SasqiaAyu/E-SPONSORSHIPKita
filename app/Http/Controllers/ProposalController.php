@@ -90,49 +90,43 @@ class ProposalController extends Controller
 
     public function approveProposal(Request $request)
     {
-        //
-        // return $request;
         $proposal = Proposal::find($request->proposal_id);
         $proposal->approve = 1;
         $proposal->tgl_approve = date("Y-m-d");
-        $proposal->save();
-
+        $proposal->update();
+        //
         //Mail::to($proposal->student->user->email)->send(new ApproveEmail($proposal));
         $message = $proposal->file_nama." telah di terima oleh perusahaan ".$proposal->company->user->nama;
         Mail::to($proposal->student->user->email)->send(new SendEmail($message));
-        return redirect()->back();
+
+        return response()->json(['success' => true]);
     }
 
     public function rejectProposal(Request $request)
     {
-        //
-        // return $request;
+
         $proposal = Proposal::find($request->proposal_id);
         $proposal->approve = 3;
         $proposal->tgl_approve = date("Y-m-d");
-        $proposal->save();
+        $proposal->update();
 
         $message = $proposal->file_nama." telah di tolak oleh perusahaan ".$proposal->company->user->nama;
         Mail::to($proposal->student->user->email)->send(new SendEmail($message));
 
-        return redirect()->back();
-
+        return response()->json(['success' => true]);
     }
     public function batalProposal(Request $request)
     {
-        //
-        // return $request;
+
         $proposal = Proposal::find($request->proposal_id);
         $proposal->approve = 2;
         $proposal->tgl_approve = date("Y-m-d");
-        $proposal->save();
+        $proposal->update();
 
         $message = $proposal->file_nama." telah di batalkan oleh perusahaan ".$proposal->company->user->nama;
         Mail::to($proposal->student->user->email)->send(new SendEmail($message));
 
-        return redirect()->back();
-
-
+        return response()->json(['success' => true]);
     }
 
 

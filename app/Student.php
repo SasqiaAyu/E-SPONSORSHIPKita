@@ -28,6 +28,6 @@ class Student extends Model
     }
     public function major()
     {
-        return $this->belongsTo ('App\major');
+        return $this->belongsTo ('App\Major');
     }
 }

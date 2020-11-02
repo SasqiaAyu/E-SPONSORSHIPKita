@@ -110,6 +110,7 @@
 @endsection
 
 @section('script')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
     $( document ).ready(function() {
         $.ajaxSetup({
@@ -120,6 +121,7 @@
     });
 
     function approve(proposal_id){
+
         if(confirm("Apa Anda Yakin Akan Approve Proposal ini?")){
             var _url = '{{ url("/")}}/approveProposal';
             $.ajax({
@@ -130,11 +132,25 @@
                     proposal_id: proposal_id,
                 },
                 beforeSend: function() {
+                  swal({
+                    title: 'Silahkan tunggu',
+                    text: 'Sedang memproses',
+                    buttons: false,
+                    allowOutsideClick: false
+                  });
                 // waitingDialog.show();
                 },
                 success : function(data){
+                  swal.close();
+                  swal({
+                    title: "Berhasil",
+                    text: "Proposal berhasil di approve",
+                    icon: "success",
+                    buttons: false,
+                    allowOutsideClick: false
+                  });
+                  setTimeout(function(){ window.location.reload(); }, 2000);
 
-                window.location.reload();
                 },
                 afterSend: function() {
                 // waitingDialog.show();
@@ -156,11 +172,23 @@
                     proposal_id: proposal_id,
                 },
                 beforeSend: function() {
-                // waitingDialog.show();
+                  swal({
+                    title: 'Silahkan tunggu',
+                    text: 'Sedang memproses',
+                    buttons: false,
+                    allowOutsideClick: false
+                  });
                 },
                 success : function(data){
-                    
-                window.location.reload();
+                  swal.close();
+                  swal({
+                    title: "Berhasil",
+                    text: "Proposal berhasil di reject",
+                    icon: "success",
+                    buttons: false,
+                    allowOutsideClick: false
+                  });
+                  setTimeout(function(){ window.location.reload(); }, 2000);
                 },
                 afterSend: function() {
                 // waitingDialog.show();
@@ -168,7 +196,7 @@
             });
         }else{
             return false;
-        }  
+        }
     }
 </script>
 @endsection
