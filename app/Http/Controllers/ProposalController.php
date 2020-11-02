@@ -98,9 +98,9 @@ class ProposalController extends Controller
         $proposal->save();
 
         //Mail::to($proposal->student->user->email)->send(new ApproveEmail($proposal));
-        $message = $proposal->file_nama." telah di terima oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->student->email)->send(new SendEmail($message));
-        return response()->json( ["data" => "ok"] );
+        $message = $proposal->file_nama." telah di terima oleh perusahaan ".$proposal->company->user->nama;
+        Mail::to($proposal->student->user->email)->send(new SendEmail($message));
+        return redirect()->back();
     }
 
     public function rejectProposal(Request $request)
@@ -112,11 +112,10 @@ class ProposalController extends Controller
         $proposal->tgl_approve = date("Y-m-d");
         $proposal->save();
 
+        $message = $proposal->file_nama." telah di tolak oleh perusahaan ".$proposal->company->user->nama;
+        Mail::to($proposal->student->user->email)->send(new SendEmail($message));
 
-        $message = $proposal->file_nama." telah di tolak oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->student->email)->send(new SendEmail($message));
-
-        return response()->json( ["data" => "ok"] );
+        return redirect()->back();
 
     }
     public function batalProposal(Request $request)
@@ -128,10 +127,10 @@ class ProposalController extends Controller
         $proposal->tgl_approve = date("Y-m-d");
         $proposal->save();
 
-        $message = $proposal->file_nama." telah di batalkan oleh perusahaan ".$proposal->company->nama;
-        Mail::to($proposal->student->email)->send(new SendEmail($message));
+        $message = $proposal->file_nama." telah di batalkan oleh perusahaan ".$proposal->company->user->nama;
+        Mail::to($proposal->student->user->email)->send(new SendEmail($message));
 
-        return response()->json( ["data" => "ok"] );
+        return redirect()->back();
 
 
     }
