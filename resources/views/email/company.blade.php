@@ -1,8 +1,8 @@
 Hallo {{$user->nama}}
 <br>
-Silahkan transfer biaya admin sebesar Rp. {{number_format($nilai)}}
+Untuk kelanjutan registrasi Website ESponsorship Silahkan transfer biaya admin sebesar Rp. {{number_format($nilai)}}
 <br>
-Ke rekening BCA (1234567890) atas nama (CV.ESponsorship Kita)
+Ke rekening BCA (1234567890) atas nama (CV.ESponsorship Kita) dan lampirkan foto bukti fisik di bawah ini
 <br>
 <a href="{{$url}}" style="
     text-decoration: none;

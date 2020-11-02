@@ -354,12 +354,12 @@ table{
           </td>
 	      </tr><!-- end tr -->
 	      <tr>
-          <td valign="middle" class="hero bg_white" style="background-image: url({{asset('img/features.svg')}}); background-size: cover; height: 400px;">
+          <td valign="middle" class="hero bg_white" style="background-image: url(https://storage.googleapis.com/fastwork-static/b0a2717a-1f08-4a5f-8f05-01421b7df7b7.jpg); background-size: cover; height: 400px;">
           	<div class="overlay"></div>
             <table>
             	<tr>
             		<td>
-                  <h2 style="color: #00000; margin-top: -160px"><b>Selamat Datang Uchiha Roy</b></h2>
+                  <h1 style="color: #ec524b; margin-top: -160px"><b>hajagjsgsgjdsfgdhf</b></h1>
             		</td>
             	</tr>
             </table>

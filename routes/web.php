@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/coba/email', function(){
-  return view('email.notificationEmail');
-});
+Route::get('/coba/email', 'Auth\LoginController@exampleMail');
+// Route::get('/coba/email', function(){
+//     return view('email.notificationEmail');
+// });
+
 
 Route::middleware(['web'])->group(function(){
     Route::get('/', function () {

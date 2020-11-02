@@ -10,16 +10,17 @@ use Illuminate\Queue\SerializesModels;
 class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $message;
+    
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->data = $data;
     }
 
     /**
@@ -29,7 +30,8 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        $message = $this->message;
-        return $this->view('view.name');
+        $data = $this->data;
+        // dd($message);
+        return $this->view('email.notificationEmail', compact('data'));
     }
 }
