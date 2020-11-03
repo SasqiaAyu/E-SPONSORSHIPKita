@@ -50,7 +50,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
 
         Config::set('categories',Category::get());
-        Config::set('faculties',Faculty::get());
+//        Config::set('faculties',Faculty::get());
         Config::set('majors',Major::get());
     }
 
@@ -152,8 +152,7 @@ class RegisterController extends Controller
 
             Student::create([
                 'user_id' => $user->id,
-                'major_id' => $data['jurusan'],
-                'faculty_id' => $data['fakultas'],
+                'id_major' => $data['jurusan'],
                 'foto_nim_sumber' => substr($data['foto_nim']->store('public'),7),
                 'foto_nim_nama' => $data['foto_nim']->getClientOriginalName(),
                 'foto_nim_tipe' => $data['foto_nim']->getClientMimeType()
@@ -162,8 +161,6 @@ class RegisterController extends Controller
               $message = "Mahasiswa ".$user->nama." telah berhasil mendaftar";
               Mail::to("sasqia.ayul@gmail.com")->send(new SendEmail($message));
         }
-
-
         return redirect(route('verify'));
     }
 }

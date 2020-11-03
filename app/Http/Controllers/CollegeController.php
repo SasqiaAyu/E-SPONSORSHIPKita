@@ -5,36 +5,36 @@ namespace App\Http\Controllers;
 use App\College;
 use App\Faculty;
 use App\Major;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FacultyController extends Controller
+class CollegeController extends Controller
 {
     public function index()
     {
-        $faculties = Faculty::all();
-        return view('faculty.index', compact(['faculties']));
+        $colleges = College::all();
+        return view('college.index', compact(['colleges']));
     }
 
     public function create()
     {
-        $colleges = College::all();
-        return view('faculty.create', compact(['colleges']));
+        return view('college.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'college' => 'required',
-            'faculties' => 'required'
+            'college' => 'required'
         ]);
-
         if ($validator->fails()) {
             return back()->withErrors($validator)
                 ->withInput()
                 ->with('Message Failed', 'Input Gagal !');
         } else {
-            $college = College::find($request->college);
+            $college = new College();
+            $college->name = $request->college;
+            $college->save();
             $faculties = $request->faculties;
             foreach ($faculties as $faculty) {
                 Faculty::create([
@@ -46,38 +46,39 @@ class FacultyController extends Controller
         }
     }
 
-    public function edit(Faculty $faculty)
+    public function edit(College $college)
     {
-        $colleges = College::all();
-        return view('faculty.edit', compact(['faculty', 'colleges']));
+        return view('college.edit', compact(['college']));
     }
 
-    public function update(Request $request, Faculty $faculty)
+    public function update(Request $request, College $college)
     {
         $validator = Validator::make($request->all(), [
-            'college' => 'required',
-            'faculty' => 'required'
+            'college' => 'required'
         ]);
-
         if ($validator->fails()) {
             return back()->withErrors($validator)
                 ->withInput()
                 ->with('Message Failed', 'Input Gagal !');
         } else {
-            $college = College::find($request->college);
-            $faculty->name = $request->faculty;
-            $faculty->id_college = $college->id;
-            $faculty->update();
+            $college->name = $request->college;
+            $college->update();
             return back()->with('Message Success', 'Input Berhasil !');
         }
     }
 
-    public function destroy(Faculty $faculty)
+    public function destroy(College $college)
     {
-        $majors = Major::where('id_faculty', $faculty->id)->get();
-        foreach ($majors as $major) {
-            $major->delete();
+        $faculties = Faculty::where('id_college', $college->id)->get();
+        foreach ($faculties as $faculty) {
+            $majors = Major::where('id_faculty', $faculty->id)->get();
+            foreach ($majors as $major) {
+//                $students = Student::where('')->get();
+                $major->delete();
+            }
+            $faculty->delete();
         }
-        return back()->with('Message Success',"Data Kategori Berhasil di Hapus : $faculty->name");
+        $college->delete();
+        return back()->with('Message Success',"Data Kategori Berhasil di Hapus : $college->name");
     }
 }

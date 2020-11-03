@@ -117,8 +117,7 @@ class ProfileController extends Controller
                 'email' => 'sometimes|required|email|unique:users,email,' . $id,
                 'telp' => 'required|string|max:15',
                 'alamat' => 'required|string|max:255',
-                'fakultas' => 'nullable|integer',
-                'jurusan' => 'nullable|integer',
+                'jurusan' => 'required',
                 'password' => 'nullable|string|min:8|confirmed',
             ]);
         }
@@ -159,8 +158,7 @@ class ProfileController extends Controller
             } elseif (auth()->user()->jenis_user == 3) {
                 Student::where('user_id',$id)
                 ->update([
-                    'faculty_id' => $request->fakultas?$request->fakultas:auth()->user()->student->faculty->id,
-                    'major_id' => $request->jurusan?$request->jurusan:auth()->user()->student->major->id,
+                    'id_major' => $request->jurusan?$request->jurusan:auth()->user()->student->major->id,
                 ]);
             }
             return back()->with('Message Success', 'Edit Berhasil !');

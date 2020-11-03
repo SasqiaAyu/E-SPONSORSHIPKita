@@ -49,8 +49,7 @@
                     <thead>
                         <tr>
                             <th>Nama Mahasiswa</th>
-                            <th>Fakultas</th>
-                            <th>Jurusan</th>
+                            <th>Perguruan Tinggi, Fakultas, dan Jurusan</th>
                             <th>nomor telepon</th>
                             <th>Proposal</th>
                             <th>Status</th>
@@ -62,8 +61,13 @@
                             @if ($proposal->approve != 2)
                                 <tr>
                                     <td>{{$proposal->student->user->nama}}</td>
-                                    <td>{{$proposal->student->faculty->nama}}</td>
-                                    <td>{{$proposal->student->major->nama}}</td>
+                                    <td>
+                                        {{ $proposal->student->major->faculty->college->name }}
+                                        <br>
+                                        {{ $proposal->student->major->faculty->name }}
+                                        <br>
+                                        {{$proposal->student->major->name}}
+                                    </td>
                                     <td>{{$proposal->student->user->telp}}</td>
                                     @if ($proposal->file_sumber != null)
                                         <td><a href="{{(url('storage/'.$proposal->file_sumber))}} " target="_blank" rel="noopener noreferrer">link</a></td>
@@ -94,8 +98,7 @@
                         <tr>
                             <th>Nama Mahasiswa</th>
                             <th>nomor telepon</th>
-                            <th>Fakultas</th>
-                            <th>Jurusan</th>
+                            <th>Perguruan Tinggi, Fakultas, dan Jurusan</th>
                             <th>Proposal</th>
                             <th>Status</th>
                             <th>action</th>
@@ -189,6 +192,8 @@
                     allowOutsideClick: false
                   });
                   setTimeout(function(){ window.location.reload(); }, 2000);
+
+                window.location.reload();
                 },
                 afterSend: function() {
                 // waitingDialog.show();

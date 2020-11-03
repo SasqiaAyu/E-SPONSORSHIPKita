@@ -21,20 +21,33 @@
                         {{ session()->get('Message Failed') }}
                     </div>
                     @endif
-                    <form action="{{route('major.update',$major->id)}}" method="post">
+                    <form action="{{route('major.update', $major)}}" method="post">
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label>Nama Jurusan</label>
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm @error('nama') is-invalid @enderror"
-                                    name="nama" placeholder="Masukkan Nama"
-                                    value="{{ old('nama')?old('nama'):$major->nama }}">
-                                @error('nama')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Perguruan Tinggi dan Fakultas</label>
+                                    <select class="form-control input-sm" id="" name="faculty" required>
+                                        @foreach($faculties as $faculty)
+                                            <option value="{{ $faculty->id }}"
+                                            @if($faculty->id === $major->id_faculty) selected @endif>
+                                                {{ $faculty->college->name }} - {{ $faculty->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="" style="margin-top: 1.5rem">
+                                <label>Nama Jurusan </label>
+                                <div class="form row">
+                                    <div class="form-group mt-3 col-md-4">
+                                        <input type="text" name="major" class="form-control input-sm mt-3"
+                                               placeholder="Masukan nama jurusan" value="{{ $major->name }}" required>
+                                    </div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-info" type="submit">Save</button>

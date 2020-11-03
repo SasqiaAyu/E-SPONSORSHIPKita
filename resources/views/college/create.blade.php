@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('menu','profile')
-@section('submenu','major.index')
+@section('submenu','college.index')
 @section('content')
     <div class="notika-status-area">
         <div class="container">
@@ -9,7 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                     <div class="form-element-list">
                         <div class="basic-tb-hd">
-                            <h2>Tambah Jurusan</h2>
+                            <h2>Tambah Perguruan Tinggi</h2>
                         </div>
                         @if(session()->has('Message Success'))
                             <div class="alert alert-success">
@@ -21,35 +21,35 @@
                                 {{ session()->get('Message Failed') }}
                             </div>
                         @endif
-                        <form action="{{route('major.store')}}" method="post">
+                        <form action="{{ route('college.store') }}" method="post">
                             @csrf
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>Perguruan Tinggi dan Fakultas</label>
-                                        <select class="form-control input-sm" id="" name="faculty" required>
-                                            <option value="">-- Pilih Perguruan Tinggi dan Fakultas --</option>
-                                            @foreach($faculties as $faculty)
-                                                <option value="{{ $faculty->id }}">{{ $faculty->college->name }}
-                                                    - {{ $faculty->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="" style="margin-top: 1.5rem">
-                                    <label>Nama Jurusan </label>
-                                    <div class="form row">
-                                        <div class="form-group mt-3 col-md-4">
-                                            <input type="text" name="majors[]" class="form-control input-sm mt-3"
-                                                   placeholder="Masukan nama jurusan" required>
-                                        </div>
-                                        <button class="btn btn-primary btn-sm ml-2 btn-add" type="button">Tambah
-                                        </button>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <div class="">
+                                        <label>Nama Perguruan Tinggi</label>
+                                        <input type="text"
+                                               class="form-control input-sm col-md-4 @error('nama') is-invalid @enderror"
+                                               name="college" placeholder="Masukkan nama perguruan tinggi" required
+                                               value="{{ old('name')?old('name'):'' }}">
+                                        @error('nama')
+                                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-info" type="submit">Save</button>
+                            <div class="">
+                                <label>Nama Fakultas </label>
+                                <div class="form row">
+                                    <div class="form-group mt-3 col-md-4">
+                                        <input type="text" name="faculties[]" class="form-control input-sm mt-3"
+                                               placeholder="Masukan nama fakultas" required>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm ml-2 btn-add" type="button">Tambah</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-info" id="btn-submit" type="submit">Save</button>
                         </form>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             const div = document.createElement('div');
             div.innerHTML = `<div class="row">
                 <div class="form-group mt-3 col-md-4">
-                    <input type="text" name="majors[]" class="form-control input-sm mt-3" placeholder="Masukan nama jurusan" required>
+                    <input type="text" name="faculties[]" class="form-control input-sm mt-3" placeholder="Masukan nama fakultas" required>
                 </div>
                     <button class="btn btn-danger btn-sm" type="button" onclick="btnRemove(this)">Hapus</button>
             </div>`;

@@ -82,10 +82,9 @@ class StudentController extends Controller
                             'email' => 'sometimes|required|email|unique:users,email,' . $id,
                             'telp' => 'required|string|max:15',
                             'alamat' => 'required|string|max:255',
-                            'fakultas' => 'nullable|integer',
-                            'jurusan' => 'nullable|integer',
+                            'jurusan' => 'required',
                         ]);
-        
+
         if ($validator->fails()) {
             return redirect(route('management.student.edit', $id))
                 ->withErrors($validator)
@@ -101,8 +100,7 @@ class StudentController extends Controller
                 ]);
             Student::where('user_id', $id)
                 ->update([
-                    'faculty_id' => $request->fakultas?$request->fakultas:Student::where('user_id',$id)->first()->faculty_id,
-                    'major_id' => $request->jurusan?$request->jurusan:Student::where('user_id',$id)->first()->major_id,
+                    'id_major' => $request->jurusan?$request->jurusan:Student::where('user_id',$id)->first()->major_id,
                 ]);
             return back()->with('Message Success', 'Edit Berhasil !');
         }

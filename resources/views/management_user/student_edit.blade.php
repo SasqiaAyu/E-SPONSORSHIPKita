@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('menu','management')    
+@section('menu','management')
 @section('submenu','management.student')
 @section('content')
 <div class="notika-status-area">
@@ -79,35 +79,21 @@
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Fakultas</label>
-                            <div class="nk-int-st">
-                                <select id="fakultas" class="form-control " name="fakultas" autocomplete="fakultas">
-                                    <option disabled selected>{{$user->student->faculty->nama}}</option>
-                                    @foreach ($faculties as $faculty)
-                                        @if ($faculty->id != $user->student->faculty->id)
-                                            <option value="{{$faculty->id}}">{{$faculty->nama}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                @error('fakultas')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
 
-
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label>Jurusan</label>
                             <div class="nk-int-st">
                                 <select id="jurusan" class="form-control " name="jurusan" autocomplete="jurusan">
-                                    <option disabled selected>{{$user->student->major->nama}}</option>
                                     @foreach ($majors as $major)
-                                        @if ($major->id != $user->student->major->id)
-                                            <option value="{{$major->id}}">{{$major->nama}}</option>
-                                        @endif
+                                        <option
+                                            @if($major->id === $user->student->major->id)
+                                            selected
+                                            @endif
+                                            value="{{ $major->id }}"
+                                        >{{ $major->faculty->college->name }}
+                                            - {{ $major->faculty->name }}
+                                            - {{ $major->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('jurusan')

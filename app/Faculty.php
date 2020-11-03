@@ -3,14 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Faculty extends Model
 {
-    use SoftDeletes;
-    
-    public $timestamps = true;
-    protected $fillable = [
-        'nama'
-    ];
+    protected $guarded = [];
+
+    public function college()
+    {
+        return $this->belongsTo(College::class, 'id_college', 'id');
+    }
 }

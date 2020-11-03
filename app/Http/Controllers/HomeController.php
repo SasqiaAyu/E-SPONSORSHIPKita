@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $jenis_user = auth()->user()->jenis_user;
         // $jenis_user = 1;
-        if($jenis_user == 1){            
+        if($jenis_user == 1){
             return view('home.sa',[
                 'studentActive' => User::where('jenis_user',3)->where('approve',1)->count(),
                 'companyActive' => User::where('jenis_user',2)->where('approve',1)->count(),
@@ -43,8 +43,8 @@ class HomeController extends Controller
             return view('home.company',[
                 'request' => Proposal::where('company_id',auth()->user()->company->id)->count(),
                 'requestApprove' => Proposal::where('company_id',auth()->user()->company->id)->where('approve',1)->count(),
-                'fakultas' => count(Faculty::select('nama')->distinct()->get()),
-                'student' => User::where('jenis_user',3)->where('approve',null)->count(),
+                'fakultas' => count(Faculty::select('name')->distinct()->get()),
+                'student' => User::where('jenis_user',3)->where('approve',1)->count(),
                 'proposal' => Proposal::where('company_id',auth()->user()->company->id)->get()
 
             ]);
